@@ -150,8 +150,9 @@ body.presentatiemodus .begeleider-paneel {
   pointer-events: none;
 }
 
-body.presentatiemodus #onderbalk {
-  display: none;
+body.presentatiemodus #knop-vorige,
+body.presentatiemodus #knop-volgende {
+  visibility: hidden;
 }
 
 /* === PDF print template === */
