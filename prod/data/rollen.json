@@ -1,0 +1,84 @@
+{
+  "rollen": [
+    {
+      "id": "bestuurder",
+      "naam": "De Bestuurder",
+      "tagline": "Doelgericht plannen en de regie nemen.",
+      "kleur": "#F4B5A8",
+      "kleurDonker": "#C9846F",
+      "icoon": "icoon-bestuurder.svg",
+      "kwaliteiten": [
+        { "id": "doelen-stellen", "naam": "doelen stellen" },
+        { "id": "jezelf-motiveren", "naam": "jezelf motiveren" },
+        { "id": "plannen", "naam": "plannen" },
+        { "id": "zelfvertrouwen-hebben", "naam": "zelfvertrouwen hebben" },
+        { "id": "omgaan-met-verandering", "naam": "omgaan met verandering" },
+        { "id": "hulp-vragen", "naam": "hulp vragen" }
+      ]
+    },
+    {
+      "id": "denker",
+      "naam": "De Denker",
+      "tagline": "Reflecteren, afwegen en slim leren.",
+      "kleur": "#F2C49B",
+      "kleurDonker": "#C68E5E",
+      "icoon": "icoon-denker.svg",
+      "kwaliteiten": [
+        { "id": "terugkijken", "naam": "terugkijken" },
+        { "id": "anders-kijken", "naam": "anders kijken" },
+        { "id": "ideeen-bedenken", "naam": "ideeën bedenken" },
+        { "id": "afwegen", "naam": "afwegen" },
+        { "id": "mening-vormen", "naam": "mening vormen" },
+        { "id": "slim-leren", "naam": "slim/handig leren" }
+      ]
+    },
+    {
+      "id": "ondernemer",
+      "naam": "De Ondernemer",
+      "tagline": "Initiatief nemen en doorzetten.",
+      "kleur": "#E8C572",
+      "kleurDonker": "#B89248",
+      "icoon": "icoon-ondernemer.svg",
+      "kwaliteiten": [
+        { "id": "initiatief-nemen", "naam": "initiatief nemen" },
+        { "id": "durven", "naam": "durven" },
+        { "id": "inspireren", "naam": "inspireren" },
+        { "id": "besluiten-nemen", "naam": "besluiten nemen" },
+        { "id": "uitdaging-aangaan", "naam": "de uitdaging aangaan" },
+        { "id": "doorzetten", "naam": "doorzetten" }
+      ]
+    },
+    {
+      "id": "uitzoeker",
+      "naam": "De Uitzoeker",
+      "tagline": "Nieuwsgierig onderzoeken en kritisch toetsen.",
+      "kleur": "#9DC9C2",
+      "kleurDonker": "#5F938B",
+      "icoon": "icoon-uitzoeker.svg",
+      "kwaliteiten": [
+        { "id": "nieuwsgierig-zijn", "naam": "nieuwsgierig zijn" },
+        { "id": "kritisch-zijn", "naam": "kritisch zijn" },
+        { "id": "vragen-stellen", "naam": "vragen stellen" },
+        { "id": "onderzoeken", "naam": "onderzoeken" },
+        { "id": "kennis-hebben", "naam": "(feiten)kennis hebben" },
+        { "id": "informatie-controleren", "naam": "informatie controleren" }
+      ]
+    },
+    {
+      "id": "verbinder",
+      "naam": "De Verbinder",
+      "tagline": "Contact maken en samen optrekken.",
+      "kleur": "#B8CFE0",
+      "kleurDonker": "#7C9BB5",
+      "icoon": "icoon-verbinder.svg",
+      "kwaliteiten": [
+        { "id": "contact-maken", "naam": "contact maken" },
+        { "id": "belangstelling-tonen", "naam": "belangstelling tonen" },
+        { "id": "luisteren", "naam": "luisteren" },
+        { "id": "vertrouwen-geven", "naam": "vertrouwen geven" },
+        { "id": "samenwerken", "naam": "samenwerken" },
+        { "id": "helpen", "naam": "helpen" }
+      ]
+    }
+  ]
+}

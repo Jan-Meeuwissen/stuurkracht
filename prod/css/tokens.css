@@ -1,0 +1,48 @@
+:root {
+  /* Primaire kleuren */
+  --kleur-primair: #1E3A5F;
+  --kleur-secundair: #3B6E91;
+  --kleur-accent: #E8B85F;
+  --kleur-achtergrond: #FAFAF7;
+  --kleur-tekst: #1A1F2C;
+
+  /* Rolkleuren */
+  --rol-bestuurder: #F4B5A8;
+  --rol-bestuurder-donker: #C9846F;
+  --rol-denker: #F2C49B;
+  --rol-denker-donker: #C68E5E;
+  --rol-ondernemer: #E8C572;
+  --rol-ondernemer-donker: #B89248;
+  --rol-uitzoeker: #9DC9C2;
+  --rol-uitzoeker-donker: #5F938B;
+  --rol-verbinder: #B8CFE0;
+  --rol-verbinder-donker: #7C9BB5;
+
+  /* Typografie */
+  --font-basis: 'Inter', system-ui, sans-serif;
+  --font-grootte-basis: 18px;
+  --lijnhoogte-basis: 1.6;
+
+  /* Kaarten */
+  --radius-kaart: 12px;
+  --schaduw-kaart: 0 2px 8px rgba(26, 31, 44, 0.08);
+  --schaduw-kaart-hover: 0 4px 16px rgba(26, 31, 44, 0.14);
+
+  /* Spacing */
+  --ruimte-xs: 4px;
+  --ruimte-s: 8px;
+  --ruimte-m: 16px;
+  --ruimte-l: 24px;
+  --ruimte-xl: 40px;
+  --ruimte-xxl: 64px;
+
+  /* Animatie */
+  --duur-kort: 200ms;
+  --duur-middel: 300ms;
+  --timing: ease-in-out;
+
+  /* Layout */
+  --breedte-paneel: 320px;
+  --hoogte-voortgangsbalk: 64px;
+  --hoogte-onderbalk: 72px;
+}
