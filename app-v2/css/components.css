@@ -741,3 +741,24 @@ body.paneel-verborgen .paneel-tonen-knop {
   width: 0;
   height: 0;
 }
+
+/* === v2: Nav logo === */
+.nav-logo {
+  position: absolute;
+  left: var(--ruimte-xl);
+  height: 36px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* === v2: Start zeilboot === */
+.start-zeilboot {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  border-radius: 12px;
+  margin: var(--ruimte-l) 0 var(--ruimte-m);
+  box-shadow: 0 4px 16px rgba(26,31,44,0.12);
+  display: block;
+}
