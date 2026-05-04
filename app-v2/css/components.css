@@ -762,3 +762,42 @@ body.paneel-verborgen .paneel-tonen-knop {
   box-shadow: 0 4px 16px rgba(26,31,44,0.12);
   display: block;
 }
+
+/* === v2: Start footer met logo's === */
+.start-footer {
+  width: 100%;
+  background: white;
+  padding: var(--ruimte-m) var(--ruimte-xl);
+  text-align: center;
+}
+
+.start-footer-label {
+  font-size: 0.82rem;
+  color: rgba(26,31,44,0.55);
+  margin-bottom: var(--ruimte-m);
+}
+
+.start-footer-label a {
+  color: var(--kleur-secundair);
+  text-decoration: underline;
+}
+
+.start-footer-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--ruimte-xl);
+}
+
+.start-footer-logos img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+  transition: opacity 0.15s;
+}
+
+.start-footer-logos img:hover {
+  opacity: 1;
+}
