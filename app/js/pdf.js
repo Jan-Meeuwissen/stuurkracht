@@ -1,4 +1,4 @@
-export async function exporteerAlsPdf(state, content) {
+export function exporteerAlsPdf(state, content) {
   const { rollen, actiekaarten } = content;
 
   const rolData = rollen.rollen.find(r => r.id === state.gekozenRol);
@@ -6,7 +6,6 @@ export async function exporteerAlsPdf(state, content) {
 
   const datum = new Date().toLocaleDateString('nl-NL', { year: 'numeric', month: 'long', day: 'numeric' });
   const bestandsDatum = new Date().toISOString().slice(0, 10);
-
   const kleur = rolData?.kleur ?? '#1E3A5F';
 
   const zelfreflectieHtml = Object.entries(state.zelfreflectie ?? {}).map(([rolId, data]) => {
@@ -23,9 +22,9 @@ export async function exporteerAlsPdf(state, content) {
 
   const hulpVelden = (groep, labels) => Object.entries(groep ?? {}).map(([id, waarde]) => {
     const label = labels[id] ?? id;
-    return `<div style="margin-bottom:8px">
-      <div style="font-size:10px;color:#666;font-weight:600;text-transform:uppercase">${label}</div>
-      <div style="border:1px solid #eee;border-radius:4px;padding:6px 8px;min-height:28px;font-size:12px">${waarde || '—'}</div>
+    return `<div style="margin-bottom:10px">
+      <div style="font-size:10px;color:#666;font-weight:600;text-transform:uppercase;margin-bottom:3px">${label}</div>
+      <div style="border:1px solid #ddd;border-radius:4px;padding:6px 8px;min-height:24px;font-size:12px">${waarde || '—'}</div>
     </div>`;
   }).join('');
 
@@ -38,17 +37,25 @@ export async function exporteerAlsPdf(state, content) {
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
+  <title>STUURkracht actieplan — ${bestandsDatum}</title>
   <style>
-    body { font-family: Arial, sans-serif; font-size: 12px; color: #1A1F2C; margin: 0; padding: 20px; }
-    h1 { font-size: 22px; color: #1E3A5F; margin-bottom: 4px; }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; font-size: 12px; color: #1A1F2C; margin: 0; padding: 24px; }
+    h1 { font-size: 22px; color: #1E3A5F; margin: 0 0 4px; }
     h2 { font-size: 14px; color: #1E3A5F; border-bottom: 2px solid ${kleur}; padding-bottom: 4px; margin: 20px 0 12px; }
     .voorblad { background: #1E3A5F; color: white; padding: 24px; border-radius: 8px; margin-bottom: 20px; }
     .voorblad h1 { color: white; }
-    .voorblad .datum { color: rgba(255,255,255,0.7); font-size: 11px; margin-top: 4px; }
+    .datum { color: rgba(255,255,255,0.7); font-size: 11px; margin-top: 4px; }
     .tag { display: inline-block; background: ${kleur}; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; color: #1E3A5F; margin-top: 8px; }
     table { width: 100%; border-collapse: collapse; font-size: 11px; }
-    th { background: #f5f5f3; padding: 6px 8px; text-align: left; font-weight: 600; }
-    td { border-top: 1px solid #eee; }
+    th { background: #f5f5f3; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #ddd; }
+    td { border-top: 1px solid #eee; vertical-align: top; }
+    .actie-blok { background: ${kleur}20; border-left: 4px solid ${kleur}; padding: 12px; border-radius: 4px; font-weight: 600; }
+    .footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #eee; font-size: 10px; color: #999; text-align: center; }
+    @media print {
+      body { padding: 0; }
+      @page { margin: 15mm; }
+    }
   </style>
 </head>
 <body>
@@ -72,37 +79,26 @@ export async function exporteerAlsPdf(state, content) {
 
   ${actieData ? `
   <h2>Gekozen actie</h2>
-  <div style="background:${kleur}20;border-left:4px solid ${kleur};padding:12px;border-radius:4px;font-weight:600">${actieData.tekst}</div>
+  <div class="actie-blok">${actieData.tekst}</div>
   ` : ''}
 
-  ${state.actie?.doelen ? `<h2>Doelen en gewenste opbrengsten</h2>${hulpVelden(state.actie.doelen, doelenLabels)}` : ''}
-  ${state.actie?.concreet ? `<h2>Actie concreet maken</h2>${hulpVelden(state.actie.concreet, concreetLabels)}` : ''}
-  ${state.actie?.omgeving ? `<h2>Invloed omgevingsfactoren</h2>${hulpVelden(state.actie.omgeving, omgevingLabels)}` : ''}
+  ${state.actie?.doelen && Object.keys(state.actie.doelen).length ? `<h2>Doelen en gewenste opbrengsten</h2>${hulpVelden(state.actie.doelen, doelenLabels)}` : ''}
+  ${state.actie?.concreet && Object.keys(state.actie.concreet).length ? `<h2>Actie concreet maken</h2>${hulpVelden(state.actie.concreet, concreetLabels)}` : ''}
+  ${state.actie?.omgeving && Object.keys(state.actie.omgeving).length ? `<h2>Invloed omgevingsfactoren</h2>${hulpVelden(state.actie.omgeving, omgevingLabels)}` : ''}
   ${state.reflectie?.gelukt ? `<h2>Reflectie</h2>${hulpVelden(state.reflectie, reflectieLabels)}` : ''}
 
-  <div style="margin-top:32px;padding-top:12px;border-top:1px solid #eee;font-size:10px;color:#999;text-align:center">
+  <div class="footer">
     STUURkracht Challenge — HAN · NRO · De Haagse Hogeschool · Noorderpoort · RijnIJssel · ROC Nijmegen
   </div>
+  <script>window.onload = function() { window.print(); }<\/script>
 </body>
 </html>`;
 
-  const element = document.createElement('div');
-  element.innerHTML = html;
-  element.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px';
-  document.body.appendChild(element);
-
-  try {
-    await window.html2pdf()
-      .set({
-        margin: 10,
-        filename: `stuurkracht-actieplan-${bestandsDatum}.pdf`,
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      })
-      .from(element)
-      .save();
-  } finally {
-    document.body.removeChild(element);
+  const venster = window.open('', '_blank');
+  if (!venster) {
+    alert('Schakel pop-ups in voor deze pagina om de PDF te genereren.');
+    return;
   }
+  venster.document.write(html);
+  venster.document.close();
 }

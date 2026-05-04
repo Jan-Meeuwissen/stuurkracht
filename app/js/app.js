@@ -168,16 +168,8 @@ function updateBegeleidersPaneel(stap) {
 }
 
 function initialiseerOverzicht() {
-  document.getElementById('knop-pdf')?.addEventListener('click', async () => {
-    const knop = document.getElementById('knop-pdf');
-    knop.disabled = true;
-    knop.textContent = 'PDF maken…';
-    try {
-      await exporteerAlsPdf(state, content);
-    } finally {
-      knop.disabled = false;
-      knop.textContent = 'Download als PDF';
-    }
+  document.getElementById('knop-pdf')?.addEventListener('click', () => {
+    exporteerAlsPdf(state, content);
   });
 
   document.getElementById('knop-nieuwe-sessie')?.addEventListener('click', () => {
