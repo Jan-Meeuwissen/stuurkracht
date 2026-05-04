@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="De Denker">
+  <path d="M32 8 C20 8 12 16 12 28 C12 35 16 40 20 44 L20 50 L44 50 L44 44 C48 40 52 35 52 28 C52 16 44 8 32 8 Z"/>
+  <line x1="22" y1="54" x2="42" y2="54"/>
+  <line x1="26" y1="58" x2="38" y2="58"/>
+  <line x1="32" y1="50" x2="32" y2="32"/>
+  <path d="M26 32 L32 26 L38 32"/>
+</svg>

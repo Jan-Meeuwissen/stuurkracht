@@ -1,0 +1,230 @@
+/* === App shell === */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* === Voortgangsbalk === */
+#voortgangsbalk {
+  background: var(--kleur-primair);
+  height: var(--hoogte-voortgangsbalk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--ruimte-xl);
+  gap: var(--ruimte-l);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(26, 31, 44, 0.15);
+  flex-shrink: 0;
+}
+
+.voortgang-verbinding {
+  flex: 1;
+  max-width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1px;
+}
+
+/* === Content rij (main + paneel) === */
+#content-rij {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* === Hoofd content === */
+#hoofd-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Stap-secties === */
+.stap-sectie {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+}
+
+.stap-sectie.actief {
+  display: flex;
+}
+
+.stap-inhoud {
+  flex: 1;
+  padding: var(--ruimte-xl);
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.stap-header {
+  margin-bottom: var(--ruimte-xl);
+}
+
+.stap-header h1 {
+  color: var(--kleur-primair);
+}
+
+.stap-intro {
+  font-size: 1.05rem;
+  color: rgba(26, 31, 44, 0.7);
+  margin-top: var(--ruimte-s);
+}
+
+/* === Onderbalk === */
+#onderbalk {
+  background: white;
+  border-top: 1px solid rgba(26, 31, 44, 0.1);
+  height: var(--hoogte-onderbalk);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--ruimte-xl);
+  flex-shrink: 0;
+  gap: var(--ruimte-m);
+  box-shadow: 0 -2px 8px rgba(26, 31, 44, 0.05);
+}
+
+.onderbalk-links,
+.onderbalk-rechts {
+  display: flex;
+  align-items: center;
+  gap: var(--ruimte-m);
+}
+
+.onderbalk-midden {
+  flex: 1;
+  text-align: center;
+}
+
+/* === Startscherm === */
+#sectie-start {
+  background: linear-gradient(135deg, var(--kleur-primair) 0%, var(--kleur-secundair) 100%);
+  color: white;
+  min-height: calc(100vh - var(--hoogte-onderbalk));
+}
+
+#sectie-start .stap-inhoud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--ruimte-xxl);
+  padding-bottom: var(--ruimte-xxl);
+}
+
+#sectie-start h1 { color: white; font-size: 2.5rem; }
+#sectie-start .stap-intro { color: rgba(255,255,255,0.85); font-size: 1.15rem; }
+
+.welkom-subtitel {
+  font-size: 1.1rem;
+  color: var(--kleur-accent);
+  font-weight: 600;
+  margin-bottom: var(--ruimte-s);
+}
+
+/* === Overzicht-knoppen === */
+.overzicht-acties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ruimte-m);
+  margin-bottom: var(--ruimte-xl);
+}
+
+/* === Presentatiemodus === */
+body.presentatiemodus #voortgangsbalk {
+  display: none;
+}
+
+body.presentatiemodus .begeleider-paneel {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+body.presentatiemodus #onderbalk {
+  display: none;
+}
+
+/* === PDF print template === */
+#pdf-template {
+  display: none;
+}
+
+@media print {
+  #pdf-template {
+    display: block;
+  }
+  #app { display: none; }
+}
+
+/* === Responsive aanpassingen === */
+@media (max-width: 1280px) {
+  :root { --breedte-paneel: 280px; }
+  .stap-inhoud { padding: var(--ruimte-l); }
+}
+
+@media (max-width: 1024px) {
+  #content-rij { flex-direction: column; }
+
+  .begeleider-paneel {
+    width: 100% !important;
+    border-left: none;
+    border-top: 1px solid rgba(30, 58, 95, 0.12);
+    max-height: 300px;
+  }
+
+  .begeleider-paneel[aria-hidden="true"] {
+    max-height: 0;
+    height: 0;
+  }
+
+  #voortgangsbalk {
+    padding: 0 var(--ruimte-m);
+    gap: var(--ruimte-s);
+  }
+
+  .stap-label { display: none; }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+
+  .stap-inhoud { padding: var(--ruimte-m); }
+
+  #onderbalk {
+    padding: 0 var(--ruimte-m);
+    height: auto;
+    padding-top: var(--ruimte-m);
+    padding-bottom: var(--ruimte-m);
+  }
+
+  .onderbalk-midden { display: none; }
+
+  #sectie-start h1 { font-size: 1.8rem; }
+}
+
+/* === Fade overgang tussen stappen === */
+.stap-sectie {
+  animation: stapInkomen var(--duur-middel) var(--timing);
+}
+
+@keyframes stapInkomen {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* === Sessie-indicator in onderbalk === */
+.sessie-info {
+  font-size: 0.8rem;
+  color: rgba(26, 31, 44, 0.5);
+}

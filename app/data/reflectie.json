@@ -1,0 +1,14 @@
+{
+  "reflectiekaart": {
+    "id": "reflectie",
+    "titel": "Terugblik op voorgenomen actie",
+    "intro": "Kijk samen terug op de actie die je hebt uitgevoerd. Wat heeft het je gebracht?",
+    "vragen": [
+      { "id": "gelukt", "tekst": "In hoeverre is het gelukt om de actie uit te voeren?" },
+      { "id": "verklaring", "tekst": "Hoe verklaar je de mate waarin de actie gelukt is?" },
+      { "id": "geleerd-actie", "tekst": "Wat heb je van de actie geleerd (kennis, inzicht, anders)?" },
+      { "id": "geleerd-zelf", "tekst": "Wat heb je geleerd over jezelf?" },
+      { "id": "vervolgstap", "tekst": "Welke vervolgstap zou je nu kunnen gaan zetten?" }
+    ]
+  }
+}

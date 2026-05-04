@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright *)",
+      "Bash(unzip -p /home/jan/stuurkracht/files.zip begeleider.json)",
+      "Bash(unzip -p files.zip rollen.json)",
+      "Bash(python3 -m json.tool --no-indent)",
+      "Bash(unzip -p files.zip actiekaarten.json)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(f'Total: {len\\(d[\\\\\"actiekaarten\\\\\"]\\)} cards'\\); [print\\(f'{r}: {sum\\(1 for k in d[\\\\\"actiekaarten\\\\\"] if k[\\\\\"rol\\\\\"]==r\\)}'\\) for r in [\\\\\"bestuurder\\\\\",\\\\\"denker\\\\\",\\\\\"ondernemer\\\\\",\\\\\"uitzoeker\\\\\",\\\\\"verbinder\\\\\"]]\")",
+      "Bash(unzip -p files.zip hulpkaarten.json)",
+      "Bash(unzip -p files.zip reflectie.json)",
+      "Bash(unzip -p files.zip voorbeelden-uitdagingen.json)",
+      "Bash(npm install *)",
+      "Bash(unzip -o files.zip rollen.json actiekaarten.json hulpkaarten.json reflectie.json begeleider.json voorbeelden-uitdagingen.json -d app/data/)",
+      "Bash(unzip -o files.zip icoon-kompas.svg icoon-roer.svg icoon-zeil.svg icoon-bestuurder.svg icoon-denker.svg icoon-ondernemer.svg icoon-uitzoeker.svg icoon-verbinder.svg -d app/assets/icons/)",
+      "Bash(unzip -o files.zip illustratie-zeilboot.svg -d app/assets/images/)",
+      "Bash(npm show *)",
+      "Bash(python3 -c \"import json,sys; v=json.load\\(sys.stdin\\); print\\(v[-1]\\)\")",
+      "Bash(unzip -o /home/jan/stuurkracht/files.zip rollen.json actiekaarten.json hulpkaarten.json reflectie.json begeleider.json voorbeelden-uitdagingen.json -d /home/jan/stuurkracht/app/data/)",
+      "Bash(unzip -o /home/jan/stuurkracht/files.zip icoon-kompas.svg icoon-roer.svg icoon-zeil.svg icoon-bestuurder.svg icoon-denker.svg icoon-ondernemer.svg icoon-uitzoeker.svg icoon-verbinder.svg -d /home/jan/stuurkracht/app/assets/icons/)",
+      "Bash(unzip -o /home/jan/stuurkracht/files.zip illustratie-zeilboot.svg -d /home/jan/stuurkracht/app/assets/images/)",
+      "Bash(node_modules/.bin/vitest run *)",
+      "Bash(node *)",
+      "Bash(node_modules/.bin/html-validate *)",
+      "Bash(python3 *)",
+      "Bash(node_modules/.bin/playwright test *)",
+      "Bash(npm run *)",
+      "Bash(git *)"
+    ]
+  }
+}

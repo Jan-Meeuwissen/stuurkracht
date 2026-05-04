@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STUURkracht Challenge</title>
+  <meta name="description" content="Digitale webapp voor de STUURkracht Challenge — klassikale begeleiding bij uitdagingen in het onderwijs.">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Voortgangsbalk -->
+  <nav id="voortgangsbalk" aria-label="Voortgang">
+    <button type="button" class="stap-punt" data-stap="1" aria-label="Stap 1: Uitdaging" aria-current="false">
+      <span class="stap-cirkel">1</span>
+      <span class="stap-label">Uitdaging</span>
+    </button>
+    <div class="voortgang-verbinding" aria-hidden="true"></div>
+    <button type="button" class="stap-punt" data-stap="2" aria-label="Stap 2: Kwaliteiten" aria-current="false">
+      <span class="stap-cirkel">2</span>
+      <span class="stap-label">Kwaliteiten</span>
+    </button>
+    <div class="voortgang-verbinding" aria-hidden="true"></div>
+    <button type="button" class="stap-punt" data-stap="3" aria-label="Stap 3: Zelfreflectie" aria-current="false">
+      <span class="stap-cirkel">3</span>
+      <span class="stap-label">Zelfreflectie</span>
+    </button>
+    <div class="voortgang-verbinding" aria-hidden="true"></div>
+    <button type="button" class="stap-punt" data-stap="4a" aria-label="Stap 4: Actie" aria-current="false">
+      <span class="stap-cirkel">4</span>
+      <span class="stap-label">Actie</span>
+    </button>
+    <div class="voortgang-verbinding" aria-hidden="true"></div>
+    <button type="button" class="stap-punt" data-stap="5" aria-label="Stap 5: Reflectie" aria-current="false">
+      <span class="stap-cirkel">5</span>
+      <span class="stap-label">Reflectie</span>
+    </button>
+  </nav>
+
+  <!-- Content rij -->
+  <div id="content-rij">
+
+    <!-- Hoofd content -->
+    <main id="hoofd-content" tabindex="-1">
+
+      <!-- Startscherm -->
+      <section id="sectie-start" class="stap-sectie actief" aria-labelledby="start-titel">
+        <div class="stap-inhoud">
+          <img class="welkom-zeilboot" src="assets/images/illustratie-zeilboot.svg"
+               alt="Illustratie van een zeilboot op zee" width="280" height="200">
+
+          <p class="welkom-subtitel">Welkom bij de</p>
+          <h1 id="start-titel">STUURkracht Challenge</h1>
+          <p class="stap-intro">
+            Leer regie nemen op uitdagende momenten in je opleiding.<br>
+            Via de zeilbootmetafoor — <em>doel kiezen, kwaliteiten inzetten, je verhouden tot de omgeving</em> —
+            werk je in vijf stappen aan een concreet actieplan.
+          </p>
+
+          <div class="stappen-overzicht" aria-label="Overzicht van de vijf stappen">
+            <div class="stap-preview">
+              <div class="stap-nummer">1</div>
+              <div>Wat is jouw uitdaging?</div>
+            </div>
+            <div class="stap-preview">
+              <div class="stap-nummer">2</div>
+              <div>Welke kwaliteiten heb je nodig?</div>
+            </div>
+            <div class="stap-preview">
+              <div class="stap-nummer">3</div>
+              <div>Waar ben jij al sterk in?</div>
+            </div>
+            <div class="stap-preview">
+              <div class="stap-nummer">4</div>
+              <div>Kies een actie</div>
+            </div>
+            <div class="stap-preview">
+              <div class="stap-nummer">5</div>
+              <div>Kijk samen terug</div>
+            </div>
+          </div>
+
+          <button type="button" id="knop-start" class="knop-primair" style="font-size:1.15rem;padding:16px 40px;margin-top:8px">
+            Start sessie
+          </button>
+        </div>
+      </section>
+
+      <!-- Stap 1: Uitdaging -->
+      <section id="sectie-1" class="stap-sectie" aria-labelledby="stap1-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap1-titel">Stap 1 — Wat is jouw uitdaging?</h1>
+            <p class="stap-intro">Wat zijn uitdagende momenten in jullie opleiding?</p>
+          </div>
+
+          <label for="uitdaging-textarea">Schrijf hier de uitdaging(en) op:</label>
+          <textarea id="uitdaging-textarea"
+            rows="6"
+            placeholder="Typ hier een uitdagend moment… of klik een voorbeeld hieronder."
+            aria-describedby="uitdaging-toelichting"></textarea>
+          <p id="uitdaging-toelichting" style="font-size:0.85rem;color:rgba(26,31,44,0.7);margin-top:8px">
+            Automatisch opgeslagen in de browser.
+          </p>
+
+          <h2 style="margin-top:32px;font-size:1rem">Of kies een voorbeeld:</h2>
+          <div id="chips-container" class="chips-container" role="group" aria-label="Voorbeeldscenario's"></div>
+        </div>
+      </section>
+
+      <!-- Stap 2: Kwaliteiten -->
+      <section id="sectie-2" class="stap-sectie" aria-labelledby="stap2-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap2-titel">Stap 2 — Welke kwaliteiten heb je nodig?</h1>
+            <p class="stap-intro">Welke kwaliteiten zijn nodig om met de uitdagende momenten om te gaan? Klik een kaart om de kwaliteiten te zien.</p>
+          </div>
+
+          <div id="rollen-grid-stap2" class="rollen-grid" aria-label="Vijf stuurkrachtrollen"></div>
+        </div>
+      </section>
+
+      <!-- Stap 3: Zelfreflectie -->
+      <section id="sectie-3" class="stap-sectie" aria-labelledby="stap3-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap3-titel">Stap 3 — Waar ben jij al sterk in?</h1>
+            <p class="stap-intro">In welke rol herken je jezelf? Welke kwaliteiten beheers je al goed? In welke wil je je nog ontwikkelen?</p>
+          </div>
+
+          <div id="rollen-grid-stap3" class="reflectie-rollen-grid"></div>
+
+          <div style="margin-top:var(--ruimte-xl)">
+            <h2 style="font-size:1.1rem">Welke rol wil je inzetten voor jouw uitdaging?</h2>
+
+            <div id="rolkeuze-waarschuwing" class="waarschuwing-banner" hidden role="alert">
+              Kies eerst een rol voordat je verdergaat.
+            </div>
+
+            <div id="rolkeuze-groep" class="rolkeuze-groep" role="radiogroup" aria-label="Kies een rol"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stap 4a: Actiekaart kiezen -->
+      <section id="sectie-4a" class="stap-sectie" aria-labelledby="stap4a-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap4a-titel">Stap 4 — Kies een actiekaart</h1>
+            <p class="stap-intro">Actiekaarten voor: <strong id="actie-rol-naam"></strong></p>
+          </div>
+
+          <div id="actiekaarten-grid" class="actiekaarten-grid" aria-label="Actiekaarten"></div>
+
+          <div style="margin-top:var(--ruimte-l)">
+            <button type="button" id="andere-rol-knop" class="knop-ghost">
+              ← Andere rol kiezen
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stap 4b: Actie concreet maken -->
+      <section id="sectie-4b" class="stap-sectie" aria-labelledby="stap4b-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap4b-titel">Stap 4 — Maak de actie concreet</h1>
+          </div>
+
+          <div id="stap4b-referentie" class="referentie-blok" aria-label="Gekozen actiekaart"></div>
+
+          <div id="hulpkaarten-formulier"></div>
+        </div>
+      </section>
+
+      <!-- Stap 5: Reflectie -->
+      <section id="sectie-5" class="stap-sectie" aria-labelledby="stap5-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="stap5-titel">Stap 5 — Kijk samen terug</h1>
+            <p class="stap-intro">Reflecteer op de actie die je hebt uitgevoerd.</p>
+          </div>
+
+          <div id="stap5-referentie" class="referentie-blok" aria-label="Jouw actie ter referentie"></div>
+
+          <div id="reflectie-formulier"></div>
+
+          <div style="display:flex;gap:var(--ruimte-m);margin-top:var(--ruimte-xl);flex-wrap:wrap">
+            <button type="button" id="knop-vervolgactie" class="knop-secundair">
+              ← Vervolgactie kiezen
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Overzicht -->
+      <section id="sectie-overzicht" class="stap-sectie" aria-labelledby="overzicht-titel">
+        <div class="stap-inhoud">
+          <div class="stap-header">
+            <h1 id="overzicht-titel">Sessie-overzicht</h1>
+            <p class="stap-intro">Alles wat jullie hebben ingevuld, op één pagina.</p>
+          </div>
+
+          <div class="overzicht-acties">
+            <button type="button" id="knop-pdf" class="knop-primair">Download als PDF</button>
+            <button type="button" id="knop-doorgaan" class="knop-secundair">Doorgaan met sessie</button>
+            <button type="button" id="knop-nieuwe-sessie" class="knop-gevaar">Nieuwe sessie starten</button>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Uitdaging</h2>
+            <div class="overzicht-veld">
+              <div class="overzicht-waarde" id="overzicht-uitdaging"></div>
+            </div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Zelfreflectie</h2>
+            <div id="overzicht-zelfreflectie"></div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Gekozen rol</h2>
+            <div class="overzicht-veld">
+              <div class="overzicht-waarde" id="overzicht-rol"></div>
+            </div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Gekozen actie</h2>
+            <div class="overzicht-veld">
+              <div class="overzicht-waarde" id="overzicht-actie"></div>
+            </div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Doelen en gewenste opbrengsten</h2>
+            <div id="overzicht-doelen"></div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Actie concreet</h2>
+            <div id="overzicht-concreet"></div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Invloed omgevingsfactoren</h2>
+            <div id="overzicht-omgeving"></div>
+          </div>
+
+          <div class="overzicht-sectie">
+            <h2>Reflectie</h2>
+            <div id="overzicht-reflectie-velden"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Begeleiderspaneel -->
+    <aside id="begeleider-paneel" class="begeleider-paneel" aria-label="Begeleiderspaneel" aria-hidden="false">
+      <div class="paneel-header">
+        <h2>
+          <img src="assets/icons/icoon-kompas.svg" width="20" height="20" alt="" aria-hidden="true"
+               style="vertical-align:middle;margin-right:6px;filter:brightness(0)invert(1)">
+          Begeleider
+        </h2>
+        <button type="button" id="paneel-sluiten" class="paneel-sluiten" aria-label="Paneel verbergen">×</button>
+      </div>
+      <div id="paneel-inhoud" class="paneel-inhoud"></div>
+    </aside>
+
+    <!-- Paneel-tonen knop -->
+    <button type="button" id="paneel-tonen" class="paneel-tonen-knop" aria-label="Begeleiderspaneel tonen">
+      Begeleider
+    </button>
+
+  </div><!-- /content-rij -->
+
+  <!-- Onderbalk -->
+  <footer id="onderbalk" aria-label="Navigatie" hidden>
+    <div class="onderbalk-links">
+      <button type="button" id="knop-vorige" class="knop-secundair" aria-label="Ga naar vorige stap">
+        ← Vorige
+      </button>
+    </div>
+    <div class="onderbalk-midden">
+      <button type="button" id="toggle-presentatie" class="knop-ghost" aria-pressed="false">
+        Presentatiemodus
+      </button>
+    </div>
+    <div class="onderbalk-rechts">
+      <button type="button" id="knop-volgende" class="knop-primair" aria-label="Ga naar volgende stap">
+        Volgende →
+      </button>
+    </div>
+  </footer>
+
+</div><!-- /app -->
+
+<!-- Bevestigingsdialoog voor reset -->
+<dialog id="bevestig-dialog" aria-labelledby="dialog-titel">
+  <h2 id="dialog-titel">Nieuwe sessie starten?</h2>
+  <p class="dialog-tekst">
+    Alle ingevulde gegevens worden gewist. Dit kan niet ongedaan worden gemaakt.
+    Download eerst een PDF als je de huidige sessie wil bewaren.
+  </p>
+  <div class="dialog-acties">
+    <button type="button" id="knop-annuleer-reset" class="knop-secundair">Annuleren</button>
+    <button type="button" id="knop-bevestig-reset" class="knop-gevaar">Ja, wis alles</button>
+  </div>
+</dialog>
+
+<!-- html2pdf.js (lokaal geleverd) -->
+<script src="node_modules/html2pdf.js/dist/html2pdf.bundle.min.js"></script>
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>

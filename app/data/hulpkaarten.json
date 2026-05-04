@@ -1,0 +1,44 @@
+{
+  "hulpkaarten": [
+    {
+      "id": "doelen",
+      "volgorde": 1,
+      "titel": "Doelen en gewenste opbrengsten",
+      "intro": "Waarom doe je deze actie en wat hoop je ermee te bereiken?",
+      "vragen": [
+        { "id": "waarom", "tekst": "Waarom ga je deze actie doen?" },
+        { "id": "kenmerk-rol", "tekst": "Aan welk kenmerk van de gekozen rol ga je werken?" },
+        { "id": "opbrengst", "tekst": "Wat denk je dat de actie gaat opleveren?" },
+        { "id": "tevreden", "tekst": "Wanneer ben je tevreden?" }
+      ]
+    },
+    {
+      "id": "concreet",
+      "volgorde": 2,
+      "titel": "Actie concreet maken",
+      "intro": "Maak je actie zo concreet mogelijk: wat, wie, waar, wanneer, hoe?",
+      "vragen": [
+        { "id": "wat", "tekst": "Wat ga je precies doen?" },
+        { "id": "wie", "tekst": "Wie ga je betrekken bij het uitvoeren van je actie?" },
+        { "id": "waar", "tekst": "Waar ga je deze actie uitvoeren?" },
+        { "id": "wanneer", "tekst": "Wanneer ga je deze actie uitvoeren?" },
+        { "id": "hoe", "tekst": "Hoe ga je deze actie voorbereiden?" },
+        { "id": "eerste-stap", "tekst": "Wat is de eerste stap die je wilt gaan zetten?" }
+      ]
+    },
+    {
+      "id": "omgeving",
+      "volgorde": 3,
+      "titel": "Invloed van omgevingsfactoren",
+      "intro": "Wat in je omgeving helpt jou, en wat kan je actie in de weg staan?",
+      "vragen": [
+        { "id": "gebruiken", "tekst": "Wat kun je in jouw omgeving gebruiken om de actie tot een succes te maken?" },
+        { "id": "in-de-weg", "tekst": "Wat zou jouw actie in de weg kunnen staan?" },
+        { "id": "omgang-obstakel", "tekst": "Hoe ga je hiermee om?" },
+        { "id": "helpers", "tekst": "Wie kunnen je misschien helpen bij het uitvoeren van de actie?" },
+        { "id": "blokkers", "tekst": "Wie zou jouw actie in de weg kunnen staan?" },
+        { "id": "omgang-blokkers", "tekst": "Hoe ga je hiermee om?" }
+      ]
+    }
+  ]
+}

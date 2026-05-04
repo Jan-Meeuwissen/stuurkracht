@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Zeilboot op zee">
+  <!-- Mast -->
+  <line x1="120" y1="18" x2="120" y2="124"/>
+  <!-- Vlag bovenin -->
+  <path d="M120 22 L138 28 L120 34"/>
+  <!-- Grootzeil (achter, gevuld) -->
+  <path d="M122 28 Q160 60 158 120 L122 120 Z" fill="currentColor" fill-opacity="0.10"/>
+  <path d="M122 28 Q160 60 158 120 L122 120 Z"/>
+  <!-- Voorzeil (jib) -->
+  <path d="M118 42 Q92 80 90 120 L118 120 Z" fill="currentColor" fill-opacity="0.06"/>
+  <path d="M118 42 Q92 80 90 120 L118 120 Z"/>
+  <!-- Romp -->
+  <path d="M68 120 L172 120 L154 142 L86 142 Z" fill="currentColor" fill-opacity="0.08"/>
+  <path d="M68 120 L172 120 L154 142 L86 142 Z"/>
+  <!-- Golven -->
+  <path d="M16 156 Q40 150 64 156 T112 156 T160 156 T208 156 T232 156"/>
+  <path d="M16 168 Q40 162 64 168 T112 168 T160 168 T208 168 T232 168" stroke-opacity="0.55"/>
+</svg>
