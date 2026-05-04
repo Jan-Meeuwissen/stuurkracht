@@ -1,0 +1,123 @@
+{
+  "begeleider": {
+    "start": {
+      "titel": "Welkom — introductie van de challenge",
+      "doel": "Studenten kennis laten maken met de zeilbootmetafoor en de opbouw van de challenge.",
+      "instructies": [
+        "Leg kort de zeilbootmetafoor uit: stuurkracht inzetten kun je zien als een reis in een zeilboot.",
+        "Doel en route kiezen: wat wil je bereiken?",
+        "Kwaliteiten inzetten: wat kun je daarvoor inzetten?",
+        "Je verhouden tot de omgeving: welke factoren spelen een rol?",
+        "Geef aan dat je samen vijf stappen gaat doorlopen om aan de slag te gaan met een uitdaging.",
+        "Leg uit dat de uitkomst een concreet actieplan is dat de student daarna gaat uitvoeren."
+      ],
+      "tips": [
+        "De uitlegvideo op www.han.nl/stuurkracht-challenge kan dienen als inleiding.",
+        "Reken op ongeveer 30 tot 60 minuten voor de eerste vier stappen; stap 5 doe je op een ander moment."
+      ]
+    },
+    "stap1": {
+      "titel": "Stap 1 — Wat is jouw uitdaging?",
+      "doel": "Iedereen heeft straks een eigen uitdagend moment voor ogen.",
+      "instructies": [
+        "Stel de vraag: ‘Wat zijn uitdagende momenten in jullie opleiding?’",
+        "Een uitdagend moment is een moment waarop je denkt: ‘Oh, nu weet ik het even niet.’",
+        "Geef voorbeelden: samenwerken in een nieuwe groep, leren voor een tentamen, presenteren.",
+        "Verzamel uitdagingen klassikaal of laat studenten ze in subgroepjes bespreken.",
+        "Sluit af met de check: heeft iedereen een uitdagend moment in zijn hoofd?"
+      ],
+      "tips": [
+        "Gebruik de voorbeeldchips om het gesprek op gang te brengen wanneer er stilte valt.",
+        "Het maakt niet uit of de uitdaging klein of groot is — als het maar persoonlijk relevant is.",
+        "Schrijf de inbreng op in het tekstveld zodat de groep mee kan lezen."
+      ]
+    },
+    "stap2": {
+      "titel": "Stap 2 — Welke kwaliteiten heb je nodig?",
+      "doel": "Studenten kennis laten maken met de vijf rollen en hun kwaliteiten.",
+      "instructies": [
+        "Introduceer de vijf stuurkrachtrollen: Bestuurder, Denker, Ondernemer, Uitzoeker en Verbinder.",
+        "Klap elke rolkaart open en bespreek de zes kwaliteiten kort.",
+        "Vraag: ‘Welke kwaliteiten zijn nodig om met de uitdagende momenten om te gaan?’",
+        "Laat studenten hardop reageren: welke rol past het best bij hun uitdaging?"
+      ],
+      "tips": [
+        "Benadruk dat iedere rol waardevol is — er is geen ‘beste’ rol.",
+        "Kwaliteiten kunnen elkaar overlappen; dat mag.",
+        "Houd dit kort: het is een kennismakingsronde, geen keuzemoment."
+      ]
+    },
+    "stap3": {
+      "titel": "Stap 3 — Waar ben jij al sterk in?",
+      "doel": "Studenten reflecteren op eigen sterke kanten en kiezen een rol om aan te werken.",
+      "instructies": [
+        "Stel de vragen: ‘In welke rol herken je jezelf? Welke kwaliteiten beheers je al goed? Welke wil je nog ontwikkelen?’",
+        "Laat studenten per rol aanvinken wat sterk is en wat ze willen ontwikkelen.",
+        "Sluit af met de keuze: ‘Welke rol wil je inzetten voor jouw uitdaging?’",
+        "Bespreek desgewenst klassikaal de gekozen rollen — overeenkomsten en verschillen."
+      ],
+      "tips": [
+        "Doe deze stap eventueel in subgroepjes zodat studenten elkaar kunnen aanvullen.",
+        "Een student mag ook werken aan een rol waarin hij nog niet sterk is — juist dan ontstaat groei.",
+        "Gebruik de zelfreflectie als basis voor SLB-gesprekken later."
+      ]
+    },
+    "stap4a": {
+      "titel": "Stap 4a — Kies een actie",
+      "doel": "Studenten kiezen een actiekaart die past bij de gekozen rol.",
+      "instructies": [
+        "Toon de actiekaarten van de gekozen rol.",
+        "Laat studenten de kaarten lezen en er één uitkiezen die hen aanspreekt.",
+        "De actie hoeft niet meteen perfect te passen bij de uitdaging; het is een vertrekpunt."
+      ],
+      "tips": [
+        "Een student mag tussendoor terug naar stap 3 om een andere rol te kiezen.",
+        "Stimuleer dat studenten een actie kiezen die ze ook daadwerkelijk gaan uitvoeren — niet de makkelijkste."
+      ]
+    },
+    "stap4b": {
+      "titel": "Stap 4b — Maak je actie concreet",
+      "doel": "De gekozen actie wordt uitgewerkt tot een concreet plan.",
+      "instructies": [
+        "Werk in tweetallen of drietallen.",
+        "Lees je gekozen actiekaart hardop voor aan je medestudent(en).",
+        "De andere studenten stellen vragen aan de hand van de drie hulpkaarten om de actie concreet te maken.",
+        "Doorloop de hulpkaarten in volgorde: doelen, concreet maken, omgeving."
+      ],
+      "tips": [
+        "Het doel is niet om alle vragen ‘goed’ in te vullen, maar om scherp te krijgen wat de student gaat doen.",
+        "Eerlijk antwoord ‘ik weet het nog niet’ mag — markeer dat dan als gespreksonderwerp.",
+        "Reken ongeveer 10 minuten per hulpkaart."
+      ]
+    },
+    "stap5": {
+      "titel": "Stap 5 — Kijk samen terug",
+      "doel": "Reflecteren op de uitgevoerde actie en de groei in stuurkracht zichtbaar maken.",
+      "instructies": [
+        "Plan dit moment ruim na de actieperiode (bijvoorbeeld een of twee weken later).",
+        "Laat de student de gekozen actie en doelen terughalen.",
+        "Doorloop de vijf reflectievragen.",
+        "Sluit af met de vraag: ‘Welke vervolgstap zou je nu kunnen zetten?’",
+        "Eventueel kiest de student direct een vervolgactie en wordt stap 4 opnieuw doorlopen."
+      ],
+      "tips": [
+        "Dit is hét moment waarop zicht ontstaat op ontwikkeling in stuurkracht.",
+        "Een mislukte actie is óók een leermoment — vraag door op wat dat geleerd heeft.",
+        "Sla de PDF op voor het portfolio of SLB-dossier."
+      ]
+    },
+    "overzicht": {
+      "titel": "Overzicht — Sessie afronden",
+      "doel": "Alle ingevulde gegevens samenvatten en exporteren.",
+      "instructies": [
+        "Bespreek het overzicht kort met de student of klas.",
+        "Download de PDF zodat de student het in zijn portfolio kan opslaan.",
+        "Maak indien gewenst een vervolgafspraak voor stap 5."
+      ],
+      "tips": [
+        "Een sessie blijft op het apparaat staan tot je expliciet ‘nieuwe sessie’ start.",
+        "De PDF kan ook gemaild worden of geprint worden voor een fysiek portfolio."
+      ]
+    }
+  }
+}

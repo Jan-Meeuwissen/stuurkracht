@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Zeil">
+  <line x1="22" y1="6" x2="22" y2="52"/>
+  <path d="M22 10 Q46 22 46 50 L22 50 Z" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M22 10 Q46 22 46 50 L22 50 Z"/>
+  <path d="M10 56 Q32 60 54 56"/>
+</svg>

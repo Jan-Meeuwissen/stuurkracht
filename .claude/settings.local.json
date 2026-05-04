@@ -25,7 +25,8 @@
       "Bash(python3 *)",
       "Bash(node_modules/.bin/playwright test *)",
       "Bash(npm run *)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(node_modules/.bin/playwright screenshot *)"
     ]
   }
 }
