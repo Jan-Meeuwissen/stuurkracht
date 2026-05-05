@@ -802,6 +802,93 @@ body.paneel-verborgen .paneel-tonen-knop {
   opacity: 1;
 }
 
+/* === Stap 4b: Rol-blok === */
+.rol-blok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ruimte-s);
+  padding: var(--ruimte-m);
+  border-radius: var(--radius-kaart);
+  box-shadow: 0 2px 8px rgba(26,31,44,0.12);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  min-height: 120px;
+  text-decoration: none;
+}
+
+.rol-blok:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(26,31,44,0.2);
+}
+
+.rol-blok:focus-visible {
+  outline: 3px solid var(--kleur-focus, var(--kleur-primair));
+  outline-offset: 3px;
+}
+
+.rol-blok-icoon {
+  width: 64px;
+  height: 64px;
+}
+
+.rol-blok-naam {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.rol-blok-label {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.85;
+}
+
+/* === Stap 4b: Kwaliteiten-modal inhoud === */
+.kwaliteiten-modal-inhoud {
+  padding: var(--ruimte-m) var(--ruimte-l) var(--ruimte-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ruimte-m);
+}
+
+.kwaliteiten-sectie h3 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(26,31,44,0.6);
+  margin: 0 0 var(--ruimte-s);
+}
+
+.kwaliteiten-lijst {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kwaliteiten-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--kleur-tekst);
+}
+
+.kwaliteiten-item-icoon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
 /* === Stap 4b: Hulpkaarten sidebar === */
 .hulpkaarten-sidebar {
   display: flex;

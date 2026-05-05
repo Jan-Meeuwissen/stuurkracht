@@ -214,6 +214,21 @@ body.presentatiemodus #knop-volgende {
   #sectie-start h1 { font-size: 1.8rem; }
 }
 
+/* === Stap 4b header-rij (rol-blok + actiekaart) === */
+.stap4b-header-rij {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: var(--ruimte-l);
+  align-items: stretch;
+  margin-bottom: var(--ruimte-l);
+}
+
+@media (max-width: 640px) {
+  .stap4b-header-rij {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* === Stap 4b twee-kolommen layout === */
 .stap4b-layout {
   display: grid;

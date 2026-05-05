@@ -65,11 +65,26 @@ export function initialiseerStap4b(state, content) {
   stap4bGeinitialiseerd = true;
 
   const modal = document.getElementById('hulpkaart-modal');
+  const kwalModal = document.getElementById('kwaliteiten-modal');
   const sidebar = document.getElementById('hulpkaarten-sidebar');
   const container = document.getElementById('invulvakken-container');
   const verwijderDialog = document.getElementById('verwijder-dialog');
+  const rolBlok = document.getElementById('stap4b-rol-blok');
 
   if (!sidebar || !container || !modal) return;
+
+  // Rol-blok: klik + toetsenbord
+  if (rolBlok && kwalModal) {
+    rolBlok.addEventListener('click', () => openKwaliteitenModal(state, content));
+    rolBlok.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openKwaliteitenModal(state, content);
+      }
+    });
+    kwalModal.addEventListener('click', e => { if (e.target === kwalModal) kwalModal.close(); });
+    kwalModal.querySelector('.kwaliteiten-modal-sluiten')?.addEventListener('click', () => kwalModal.close());
+  }
 
   const { hulpkaarten } = content.hulpkaarten;
 
@@ -143,9 +158,13 @@ export function herstelStap4b(state, content) {
   const { hulpkaarten } = content.hulpkaarten;
   const modal = document.getElementById('hulpkaart-modal');
 
+  const rol = rollen.find(r => r.id === state.gekozenRol);
+
+  // Rol-blok renderen
+  renderRolBlok(rol);
+
   // Referentie-blok bijwerken
   const referentieEl = document.getElementById('stap4b-referentie');
-  const rol = rollen.find(r => r.id === state.gekozenRol);
   const actie = actiekaarten.find(k => k.id === state.actie?.kaartId);
 
   if (referentieEl && actie) {
@@ -300,4 +319,99 @@ function verwijderVak(vakId, state, hulpkaarten, modal) {
 
 function esc(str) {
   return (str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderRolBlok(rol) {
+  const blok = document.getElementById('stap4b-rol-blok');
+  if (!blok) return;
+
+  if (!rol) {
+    blok.innerHTML = '';
+    return;
+  }
+
+  blok.style.backgroundColor = rol.kleur;
+  blok.style.color = rol.kleurDonker;
+  blok.setAttribute('aria-label', `Bekijk de kwaliteiten van ${rol.naam}`);
+  blok.innerHTML = `
+    <img class="rol-blok-icoon" src="assets/icons/${rol.icoon}" alt="" aria-hidden="true">
+    <p class="rol-blok-naam">${esc(rol.naam)}</p>
+    <span class="rol-blok-label">Bekijk je kwaliteiten ↗</span>
+  `;
+}
+
+function openKwaliteitenModal(state, content) {
+  const kwalModal = document.getElementById('kwaliteiten-modal');
+  if (!kwalModal) return;
+
+  const { rollen } = content.rollen;
+  const rol = rollen.find(r => r.id === state.gekozenRol);
+  if (!rol) return;
+
+  // Modal header kleuren + icoon
+  const header = kwalModal.querySelector('#kwaliteiten-modal-header');
+  if (header) header.style.backgroundColor = rol.kleur;
+  const icoon = kwalModal.querySelector('#kwaliteiten-modal-icoon');
+  if (icoon) icoon.src = `assets/icons/${rol.icoon}`;
+  const titel = kwalModal.querySelector('#kwaliteiten-modal-titel');
+  if (titel) titel.textContent = rol.naam;
+
+  // Modal inhoud
+  const inhoudEl = kwalModal.querySelector('#kwaliteiten-modal-inhoud');
+  if (inhoudEl) inhoudEl.innerHTML = renderKwaliteitenInhoud(rol, state.zelfreflectie?.[rol.id]);
+
+  kwalModal.showModal();
+}
+
+function renderKwaliteitenInhoud(rol, reflectie) {
+  const sterkIds = reflectie?.sterk ?? [];
+  const ontwikkelenIds = reflectie?.ontwikkelen ?? [];
+  const heeftData = sterkIds.length > 0 || ontwikkelenIds.length > 0;
+
+  if (!heeftData) {
+    const items = rol.kwaliteiten.map(k => `
+      <li class="kwaliteiten-item">
+        <span class="kwaliteiten-item-icoon">•</span>
+        <span>${esc(k.naam)}</span>
+      </li>`).join('');
+    return `
+      <div class="kwaliteiten-sectie">
+        <h3>Kwaliteiten van deze rol</h3>
+        <ul class="kwaliteiten-lijst">${items}</ul>
+      </div>`;
+  }
+
+  let html = '';
+
+  if (sterkIds.length > 0) {
+    const items = rol.kwaliteiten
+      .filter(k => sterkIds.includes(k.id))
+      .map(k => `
+        <li class="kwaliteiten-item">
+          <span class="kwaliteiten-item-icoon">✓</span>
+          <span>${esc(k.naam)}</span>
+        </li>`).join('');
+    html += `
+      <div class="kwaliteiten-sectie">
+        <h3>Sterk in</h3>
+        <ul class="kwaliteiten-lijst">${items}</ul>
+      </div>`;
+  }
+
+  if (ontwikkelenIds.length > 0) {
+    const items = rol.kwaliteiten
+      .filter(k => ontwikkelenIds.includes(k.id))
+      .map(k => `
+        <li class="kwaliteiten-item">
+          <span class="kwaliteiten-item-icoon">↑</span>
+          <span>${esc(k.naam)}</span>
+        </li>`).join('');
+    html += `
+      <div class="kwaliteiten-sectie">
+        <h3>Wil ontwikkelen</h3>
+        <ul class="kwaliteiten-lijst">${items}</ul>
+      </div>`;
+  }
+
+  return html;
 }

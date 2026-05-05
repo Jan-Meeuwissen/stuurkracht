@@ -14,6 +14,28 @@ const ACTIE_STATE = {
   reflectie: {},
 };
 
+const STATE_MET_KWALITEITEN = {
+  ...ACTIE_STATE,
+  zelfreflectie: {
+    bestuurder: { sterk: ['doelen-stellen', 'plannen'], ontwikkelen: ['hulp-vragen'] },
+    denker: { sterk: [], ontwikkelen: [] },
+    ondernemer: { sterk: [], ontwikkelen: [] },
+    uitzoeker: { sterk: [], ontwikkelen: [] },
+    verbinder: { sterk: [], ontwikkelen: [] },
+  },
+};
+
+const STATE_ALLEEN_STERK = {
+  ...ACTIE_STATE,
+  zelfreflectie: {
+    bestuurder: { sterk: ['plannen'], ontwikkelen: [] },
+    denker: { sterk: [], ontwikkelen: [] },
+    ondernemer: { sterk: [], ontwikkelen: [] },
+    uitzoeker: { sterk: [], ontwikkelen: [] },
+    verbinder: { sterk: [], ontwikkelen: [] },
+  },
+};
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript((state) => {
     if (!localStorage.getItem('stuurkracht.sessie.huidig')) {
@@ -199,4 +221,116 @@ test('alle invulvak-textareas hebben bijbehorende labels', async ({ page }) => {
       await expect(page.locator(`label[for="${id}"]`), `label voor ${id}`).toBeAttached();
     }
   }
+});
+
+// ── Rol-blok ──────────────────────────────────────────────────────────────────
+
+test('rol-blok is zichtbaar bovenaan stap 4b', async ({ page }) => {
+  await expect(page.locator('[data-testid="rol-blok"]')).toBeVisible();
+});
+
+test('rol-blok toont de rolnaam en het icoon van de gekozen rol', async ({ page }) => {
+  const blok = page.locator('[data-testid="rol-blok"]');
+  await expect(blok).toContainText('De Bestuurder');
+  const icoon = blok.locator('img');
+  await expect(icoon).toHaveAttribute('src', /icoon-bestuurder/);
+});
+
+test('rol-blok heeft achtergrondkleur die overeenkomt met de gekozen rol', async ({ page }) => {
+  const bgColor = await page.locator('[data-testid="rol-blok"]').evaluate(el =>
+    getComputedStyle(el).backgroundColor
+  );
+  // Bestuurder = #F4B5A8 → rgb(244, 181, 168)
+  expect(bgColor).toBe('rgb(244, 181, 168)');
+});
+
+test('klik op rol-blok opent de kwaliteiten-modal', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').click();
+  const modal = page.locator('#kwaliteiten-modal');
+  await expect(modal).toBeVisible();
+  await expect(modal).toHaveAttribute('aria-modal', 'true');
+});
+
+test('Enter op rol-blok opent de kwaliteiten-modal', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').press('Enter');
+  await expect(page.locator('#kwaliteiten-modal')).toBeVisible();
+});
+
+test('modal toont "Sterk in" en "Wil ontwikkelen" bij gevulde zelfreflectie', async ({ page }) => {
+  await page.evaluate((state) => {
+    localStorage.setItem('stuurkracht.sessie.huidig', JSON.stringify(state));
+  }, STATE_MET_KWALITEITEN);
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+
+  await page.locator('[data-testid="rol-blok"]').click();
+  const modal = page.locator('#kwaliteiten-modal');
+  await expect(modal).toContainText('Sterk in');
+  await expect(modal).toContainText('Wil ontwikkelen');
+  await expect(modal).toContainText('doelen stellen');
+  await expect(modal).toContainText('plannen');
+  await expect(modal).toContainText('hulp vragen');
+});
+
+test('modal verbergt "Wil ontwikkelen" als die sectie leeg is', async ({ page }) => {
+  await page.evaluate((state) => {
+    localStorage.setItem('stuurkracht.sessie.huidig', JSON.stringify(state));
+  }, STATE_ALLEEN_STERK);
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+
+  await page.locator('[data-testid="rol-blok"]').click();
+  const modal = page.locator('#kwaliteiten-modal');
+  await expect(modal).toContainText('Sterk in');
+  await expect(modal).not.toContainText('Wil ontwikkelen');
+});
+
+test('modal toont fallback-lijst bij volledig lege zelfreflectie', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').click();
+  const modal = page.locator('#kwaliteiten-modal');
+  await expect(modal).toContainText('Kwaliteiten van deze rol');
+  const items = modal.locator('.kwaliteiten-item');
+  await expect(items).toHaveCount(6);
+});
+
+test('volgorde kwaliteiten in modal volgt rollen.json', async ({ page }) => {
+  await page.evaluate((state) => {
+    localStorage.setItem('stuurkracht.sessie.huidig', JSON.stringify(state));
+  }, STATE_MET_KWALITEITEN);
+  await page.reload();
+  await page.waitForLoadState('networkidle');
+
+  await page.locator('[data-testid="rol-blok"]').click();
+  const sterkItems = page.locator('#kwaliteiten-modal .kwaliteiten-sectie').first().locator('.kwaliteiten-item');
+  // Canonieke volgorde bestuurder: doelen-stellen vóór plannen
+  const eersteNaam = await sterkItems.nth(0).textContent();
+  const tweedeNaam = await sterkItems.nth(1).textContent();
+  expect(eersteNaam).toContain('doelen stellen');
+  expect(tweedeNaam).toContain('plannen');
+});
+
+test('kwaliteiten-modal sluit op kruisje', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').click();
+  await expect(page.locator('#kwaliteiten-modal')).toBeVisible();
+  await page.locator('#kwaliteiten-modal .kwaliteiten-modal-sluiten').click();
+  await expect(page.locator('#kwaliteiten-modal')).not.toBeVisible();
+});
+
+test('kwaliteiten-modal sluit op Esc', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').click();
+  await expect(page.locator('#kwaliteiten-modal')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#kwaliteiten-modal')).not.toBeVisible();
+});
+
+test('kwaliteiten-modal sluit op backdrop-klik', async ({ page }) => {
+  await page.locator('[data-testid="rol-blok"]').click();
+  const modal = page.locator('#kwaliteiten-modal');
+  await expect(modal).toBeVisible();
+  // Klik buiten de modal-inhoud (op de backdrop)
+  await modal.evaluate(el => {
+    const ev = new MouseEvent('click', { bubbles: true, cancelable: true });
+    el.dispatchEvent(ev);
+  });
+  await expect(modal).not.toBeVisible();
 });

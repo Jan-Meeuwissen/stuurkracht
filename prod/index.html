@@ -169,7 +169,16 @@
             <h1 id="stap4b-titel">Stap 4 — Maak de actie concreet</h1>
           </div>
 
-          <div id="stap4b-referentie" class="referentie-blok" aria-label="Gekozen actiekaart"></div>
+          <div class="stap4b-header-rij">
+            <div id="stap4b-rol-blok"
+                 class="rol-blok"
+                 role="button"
+                 tabindex="0"
+                 data-testid="rol-blok"
+                 aria-label="Bekijk de kwaliteiten van de gekozen rol">
+            </div>
+            <div id="stap4b-referentie" class="referentie-blok" aria-label="Gekozen actiekaart"></div>
+          </div>
 
           <div id="stap4b-layout" class="stap4b-layout">
             <div id="hulpkaarten-sidebar" class="hulpkaarten-sidebar" aria-label="Hulpkaarten"></div>
@@ -326,6 +335,20 @@
       <button type="button" class="modal-sluiten" aria-label="Modal sluiten">×</button>
     </div>
     <div id="modal-vragen" class="modal-vragen"></div>
+  </div>
+</dialog>
+
+<!-- Modal voor rol-kwaliteiten -->
+<dialog id="kwaliteiten-modal" class="hulpkaart-modal" aria-modal="true" aria-labelledby="kwaliteiten-modal-titel">
+  <div class="modal-inhoud">
+    <div class="modal-header" id="kwaliteiten-modal-header">
+      <div class="modal-header-links">
+        <img id="kwaliteiten-modal-icoon" class="modal-illustratie" src="assets/icons/icoon-bestuurder.svg" alt="" aria-hidden="true">
+        <h2 id="kwaliteiten-modal-titel">Rol</h2>
+      </div>
+      <button type="button" class="modal-sluiten kwaliteiten-modal-sluiten" aria-label="Modal sluiten">×</button>
+    </div>
+    <div id="kwaliteiten-modal-inhoud" class="kwaliteiten-modal-inhoud"></div>
   </div>
 </dialog>
 
