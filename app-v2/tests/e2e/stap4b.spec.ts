@@ -1,15 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+const KAART_TEKST = 'Maak een plan hoe te leren voor de volgende toets en vraag hier feedback op.';
+
 const ACTIE_STATE = {
   sessieId: 'test', startDatum: '2026-01-01', laatsteWijziging: '',
   huidigeStap: '4b', uitdaging: '', gekozenRol: 'bestuurder',
-  zelfreflectie: { bestuurder: { sterk: [], ontwikkelen: [] }, denker: { sterk: [], ontwikkelen: [] }, ondernemer: { sterk: [], ontwikkelen: [] }, uitzoeker: { sterk: [], ontwikkelen: [] }, verbinder: { sterk: [], ontwikkelen: [] } },
-  actie: { kaartId: 'best-01', kaartTekst: 'Maak een plan', doelen: {}, concreet: {}, omgeving: {} },
-  reflectie: {}
+  zelfreflectie: {
+    bestuurder: { sterk: [], ontwikkelen: [] }, denker: { sterk: [], ontwikkelen: [] },
+    ondernemer: { sterk: [], ontwikkelen: [] }, uitzoeker: { sterk: [], ontwikkelen: [] },
+    verbinder: { sterk: [], ontwikkelen: [] },
+  },
+  actie: { kaartId: 'best-01', kaartTekst: KAART_TEKST, antwoorden: [] },
+  reflectie: {},
 };
 
 test.beforeEach(async ({ page }) => {
-  // Only set initial state if no saved state exists — lets autosave survive reloads
   await page.addInitScript((state) => {
     if (!localStorage.getItem('stuurkracht.sessie.huidig')) {
       localStorage.setItem('stuurkracht.sessie.huidig', JSON.stringify(state));
@@ -19,62 +24,179 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState('networkidle');
 });
 
-test('drie hulpkaart-secties worden gerenderd', async ({ page }) => {
-  await expect(page.locator('.hulpkaart-sectie')).toHaveCount(3);
+// ── Initiële weergave ────────────────────────────────────────────────────────
+
+test('bij binnenkomst is exact één invulvak zichtbaar', async ({ page }) => {
+  await expect(page.locator('.invulvak')).toHaveCount(1);
 });
 
-test('sectie 1 heeft 4 textareas', async ({ page }) => {
-  const sectie = page.locator('.hulpkaart-sectie').nth(0);
-  await expect(sectie.locator('textarea')).toHaveCount(4);
+test('het initiële invulvak heeft label "Wat ga je precies doen?"', async ({ page }) => {
+  await expect(page.locator('.invulvak-label').first()).toContainText('Wat ga je precies doen?');
 });
 
-test('sectie 2 heeft 6 textareas', async ({ page }) => {
-  const sectie = page.locator('.hulpkaart-sectie').nth(1);
-  await expect(sectie.locator('textarea')).toHaveCount(6);
+test('het initiële invulvak is voorgevuld met de actiekaarttekst', async ({ page }) => {
+  const textarea = page.locator('.invulvak textarea').first();
+  await expect(textarea).toHaveValue(KAART_TEKST);
 });
 
-test('sectie 3 heeft 6 textareas', async ({ page }) => {
-  const sectie = page.locator('.hulpkaart-sectie').nth(2);
-  await expect(sectie.locator('textarea')).toHaveCount(6);
+test('drie hulpkaarten staan in de linkerkolom', async ({ page }) => {
+  await expect(page.locator('.hulpkaart-kaart')).toHaveCount(3);
 });
 
-test('totaal 16 textareas', async ({ page }) => {
-  await expect(page.locator('#hulpkaarten-formulier textarea')).toHaveCount(16);
+test('hulpkaarten hebben de juiste achtergrondkleuren', async ({ page }) => {
+  const kleuren = await page.locator('.hulpkaart-kaart').evaluateAll(cards =>
+    cards.map(c => getComputedStyle(c).backgroundColor)
+  );
+  // Alle drie moeten uniek zijn en niet de standaard wit/transparant
+  expect(new Set(kleuren).size).toBe(3);
 });
 
-test('invoer wordt opgeslagen na 500 ms', async ({ page }) => {
-  const eersteTextarea = page.locator('#hulpkaarten-formulier textarea').first();
-  await eersteTextarea.fill('Testinvoer doelen');
+test('referentie-blok toont de gekozen actietekst', async ({ page }) => {
+  await expect(page.locator('#stap4b-referentie')).toContainText(KAART_TEKST, { timeout: 5000 });
+});
+
+// ── Modal ────────────────────────────────────────────────────────────────────
+
+test('klik op hulpkaart opent modal', async ({ page }) => {
+  await page.locator('.hulpkaart-kaart').first().click();
+  const modal = page.locator('#hulpkaart-modal');
+  await expect(modal).toBeVisible();
+  await expect(modal).toHaveAttribute('aria-modal', 'true');
+});
+
+test('modal toont beschikbare vragen als knoppen', async ({ page }) => {
+  await page.locator('.hulpkaart-kaart').first().click();
+  const knoppen = page.locator('#modal-vragen .modal-vraag-knop');
+  await expect(knoppen.first()).toBeVisible();
+  expect(await knoppen.count()).toBeGreaterThan(0);
+});
+
+test('klik op vraag in modal: modal sluit en nieuw invulvak verschijnt', async ({ page }) => {
+  const aantalVoor = await page.locator('.invulvak').count();
+  await page.locator('.hulpkaart-kaart').first().click();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+
+  await expect(page.locator('#hulpkaart-modal')).not.toBeVisible();
+  await expect(page.locator('.invulvak')).toHaveCount(aantalVoor + 1);
+});
+
+test('gekozen vraag verdwijnt uit dezelfde hulpkaart bij heropenen', async ({ page }) => {
+  await page.locator('.hulpkaart-kaart').first().click();
+  const aantalVoor = await page.locator('#modal-vragen .modal-vraag-knop').count();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+
+  await page.locator('.hulpkaart-kaart').first().click();
+  const aantalNa = await page.locator('#modal-vragen .modal-vraag-knop').count();
+  expect(aantalNa).toBe(aantalVoor - 1);
+});
+
+test('modal sluit op Esc-toets', async ({ page }) => {
+  await page.locator('.hulpkaart-kaart').first().click();
+  await expect(page.locator('#hulpkaart-modal')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#hulpkaart-modal')).not.toBeVisible();
+});
+
+// ── Invulvak border-kleur ─────────────────────────────────────────────────────
+
+test('eerste invulvak heeft border-kleur van hulpkaart concreet', async ({ page }) => {
+  const borderKleur = await page.locator('.invulvak').first().evaluate(el => {
+    return getComputedStyle(el).borderLeftColor;
+  });
+  // Concreet = #D9924C → rgb(217, 146, 76)
+  expect(borderKleur).toBe('rgb(217, 146, 76)');
+});
+
+// ── Verwijderen ───────────────────────────────────────────────────────────────
+
+test('klik op kruisje bij leeg vak verwijdert direct zonder dialoog', async ({ page }) => {
+  // Voeg nieuw leeg vak toe
+  await page.locator('.hulpkaart-kaart').first().click();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+  const aantalVoor = await page.locator('.invulvak').count();
+
+  // Verwijder het lege vak (het laatste)
+  await page.locator('.invulvak-verwijder').last().click();
+  await expect(page.locator('#verwijder-dialog')).not.toBeVisible();
+  await expect(page.locator('.invulvak')).toHaveCount(aantalVoor - 1);
+});
+
+test('klik op kruisje bij ingevuld vak toont bevestigingsdialoog', async ({ page }) => {
+  await page.locator('.invulvak textarea').first().fill('Ingevulde tekst');
+  await page.locator('.invulvak-verwijder').first().click();
+  await expect(page.locator('#verwijder-dialog')).toBeVisible();
+});
+
+test('bevestigde verwijdering haalt vak weg en herstelt vraag in hulpkaart', async ({ page }) => {
+  // Voeg een vraag toe
+  await page.locator('.hulpkaart-kaart').first().click();
+  const eersteVraag = await page.locator('#modal-vragen .modal-vraag-knop').first().textContent();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+  const aantalVoor = await page.locator('.invulvak').count();
+
+  // Vul in en verwijder
+  await page.locator('.invulvak').last().locator('textarea').fill('Tekst');
+  await page.locator('.invulvak-verwijder').last().click();
+  await page.locator('#verwijder-bevestig').click();
+
+  await expect(page.locator('.invulvak')).toHaveCount(aantalVoor - 1);
+
+  // Vraag terug in modal
+  await page.locator('.hulpkaart-kaart').first().click();
+  await expect(page.locator('#modal-vragen')).toContainText(eersteVraag!.trim());
+});
+
+// ── Uitgeput ──────────────────────────────────────────────────────────────────
+
+test('hulpkaart met alle vragen toegevoegd krijgt data-uitgeput=true', async ({ page }) => {
+  // Doelen heeft 4 vragen — voeg ze allemaal toe
+  const doelenKaart = page.locator('.hulpkaart-kaart[data-hulpkaart="doelen"]');
+  for (let i = 0; i < 4; i++) {
+    await doelenKaart.click();
+    await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+  }
+  await expect(doelenKaart).toHaveAttribute('data-uitgeput', 'true');
+});
+
+// ── Persistentie ─────────────────────────────────────────────────────────────
+
+test('invulvak-antwoord wordt opgeslagen na 500 ms', async ({ page }) => {
+  await page.locator('.invulvak textarea').first().fill('Mijn actie');
   await page.waitForTimeout(600);
 
   const opgeslagen = await page.evaluate(() => {
     const raw = localStorage.getItem('stuurkracht.sessie.huidig');
     return raw ? JSON.parse(raw) : null;
   });
-  expect(opgeslagen?.actie?.doelen?.waarom).toBe('Testinvoer doelen');
+  expect(opgeslagen?.actie?.antwoorden?.[0]?.antwoord).toBe('Mijn actie');
 });
 
-test('reload behoudt alle ingevulde antwoorden', async ({ page }) => {
-  await page.locator('#hulpkaarten-formulier textarea').first().fill('Bewaar dit');
-  await page.waitForTimeout(600);
+test('reload behoudt alle invulvakken in juiste volgorde', async ({ page }) => {
+  // Voeg twee extra vragen toe
+  await page.locator('.hulpkaart-kaart').nth(0).click();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+  await page.locator('.hulpkaart-kaart').nth(1).click();
+  await page.locator('#modal-vragen .modal-vraag-knop').first().click();
+
+  const aantalVoor = await page.locator('.invulvak').count();
+  const labelVoor = await page.locator('.invulvak-label').first().textContent();
+
   await page.reload();
   await page.waitForLoadState('networkidle');
-  const waarde = await page.locator('#hulpkaarten-formulier textarea').first().inputValue();
-  expect(waarde).toBe('Bewaar dit');
+
+  await expect(page.locator('.invulvak')).toHaveCount(aantalVoor);
+  await expect(page.locator('.invulvak-label').first()).toContainText(labelVoor!.trim());
 });
 
-test('referentie-blok toont de gekozen actietekst', async ({ page }) => {
-  await expect(page.locator('#stap4b-referentie')).toContainText('Maak een plan', { timeout: 5000 });
-});
+// ── Labels ────────────────────────────────────────────────────────────────────
 
-test('alle textareas hebben labels', async ({ page }) => {
-  const textareas = page.locator('#hulpkaarten-formulier textarea');
+test('alle invulvak-textareas hebben bijbehorende labels', async ({ page }) => {
+  const textareas = page.locator('.invulvak textarea');
   const count = await textareas.count();
   for (let i = 0; i < count; i++) {
     const id = await textareas.nth(i).getAttribute('id');
     if (id) {
-      const label = page.locator(`label[for="${id}"]`);
-      await expect(label, `label voor ${id}`).toBeAttached();
+      await expect(page.locator(`label[for="${id}"]`), `label voor ${id}`).toBeAttached();
     }
   }
 });

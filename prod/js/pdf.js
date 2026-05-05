@@ -20,18 +20,18 @@ export function exporteerAlsPdf(state, content) {
     </tr>`;
   }).join('');
 
-  const hulpVelden = (groep, labels) => Object.entries(groep ?? {}).map(([id, waarde]) => {
-    const label = labels[id] ?? id;
-    return `<div style="margin-bottom:10px">
+  const veldHtml = (label, waarde) => `
+    <div style="margin-bottom:10px">
       <div style="font-size:10px;color:#666;font-weight:600;text-transform:uppercase;margin-bottom:3px">${label}</div>
       <div style="border:1px solid #ddd;border-radius:4px;padding:6px 8px;min-height:24px;font-size:12px">${waarde || '—'}</div>
     </div>`;
-  }).join('');
 
-  const doelenLabels = { 'waarom': 'Waarom doe je deze actie?', 'kenmerk-rol': 'Aan welk kenmerk werk je?', 'opbrengst': 'Wat levert het op?', 'tevreden': 'Wanneer ben je tevreden?' };
-  const concreetLabels = { 'wat': 'Wat ga je doen?', 'wie': 'Wie betrek je?', 'waar': 'Waar?', 'wanneer': 'Wanneer?', 'hoe': 'Hoe bereid je voor?', 'eerste-stap': 'Eerste stap' };
-  const omgevingLabels = { 'gebruiken': 'Wat kun je gebruiken?', 'in-de-weg': 'Wat staat in de weg?', 'omgang-obstakel': 'Hoe ga je daarmee om?', 'helpers': 'Wie kan helpen?', 'blokkers': 'Wie staat in de weg?', 'omgang-blokkers': 'Hoe ga je daarmee om?' };
+  const antwoordenHtml = (state.actie?.antwoorden ?? [])
+    .slice().sort((a, b) => a.volgorde - b.volgorde)
+    .map(vak => veldHtml(vak.vraag, vak.antwoord)).join('');
+
   const reflectieLabels = { 'gelukt': 'In hoeverre is het gelukt?', 'verklaring': 'Hoe verklaar je dat?', 'geleerd-actie': 'Wat heb je geleerd van de actie?', 'geleerd-zelf': 'Wat heb je over jezelf geleerd?', 'vervolgstap': 'Welke vervolgstap zet je?' };
+  const reflectieHtml = Object.entries(state.reflectie ?? {}).map(([id, w]) => veldHtml(reflectieLabels[id] ?? id, w)).join('');
 
   const html = `<!DOCTYPE html>
 <html lang="nl">
@@ -82,10 +82,8 @@ export function exporteerAlsPdf(state, content) {
   <div class="actie-blok">${actieData.tekst}</div>
   ` : ''}
 
-  ${state.actie?.doelen && Object.keys(state.actie.doelen).length ? `<h2>Doelen en gewenste opbrengsten</h2>${hulpVelden(state.actie.doelen, doelenLabels)}` : ''}
-  ${state.actie?.concreet && Object.keys(state.actie.concreet).length ? `<h2>Actie concreet maken</h2>${hulpVelden(state.actie.concreet, concreetLabels)}` : ''}
-  ${state.actie?.omgeving && Object.keys(state.actie.omgeving).length ? `<h2>Invloed omgevingsfactoren</h2>${hulpVelden(state.actie.omgeving, omgevingLabels)}` : ''}
-  ${state.reflectie?.gelukt ? `<h2>Reflectie</h2>${hulpVelden(state.reflectie, reflectieLabels)}` : ''}
+  ${antwoordenHtml ? `<h2>Actieplan</h2>${antwoordenHtml}` : ''}
+  ${state.reflectie?.gelukt ? `<h2>Reflectie</h2>${reflectieHtml}` : ''}
 
   <div class="footer">
     STUURkracht Challenge — HAN · NRO · De Haagse Hogeschool · Noorderpoort · RijnIJssel · ROC Nijmegen

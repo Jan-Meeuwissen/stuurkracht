@@ -235,22 +235,18 @@ function vulOverzicht(state, content) {
     }).join('');
   }
 
-  const hulpVelden = [
-    { groep: 'doelen', labels: { 'waarom': 'Waarom?', 'kenmerk-rol': 'Kenmerk rol', 'opbrengst': 'Opbrengst', 'tevreden': 'Wanneer tevreden?' } },
-    { groep: 'concreet', labels: { 'wat': 'Wat?', 'wie': 'Wie?', 'waar': 'Waar?', 'wanneer': 'Wanneer?', 'hoe': 'Hoe?', 'eerste-stap': 'Eerste stap' } },
-    { groep: 'omgeving', labels: { 'gebruiken': 'Gebruiken', 'in-de-weg': 'In de weg', 'omgang-obstakel': 'Omgang obstakel', 'helpers': 'Helpers', 'blokkers': 'Blokkers', 'omgang-blokkers': 'Omgang blokkers' } },
-  ];
-
-  hulpVelden.forEach(({ groep, labels }) => {
-    const container = document.getElementById(`overzicht-${groep}`);
-    if (!container) return;
-    container.innerHTML = Object.entries(state.actie?.[groep] ?? {}).map(([id, waarde]) => `
-      <div class="overzicht-veld">
-        <div class="overzicht-label">${labels[id] ?? id}</div>
-        <div class="overzicht-waarde">${waarde || '—'}</div>
-      </div>
-    `).join('');
-  });
+  const overzichtAntwoorden = document.getElementById('overzicht-antwoorden');
+  if (overzichtAntwoorden) {
+    const antwoorden = (state.actie?.antwoorden ?? []).slice().sort((a, b) => a.volgorde - b.volgorde);
+    overzichtAntwoorden.innerHTML = antwoorden.length === 0
+      ? '<p style="color:rgba(26,31,44,0.7);font-size:0.9rem">Geen antwoorden ingevuld.</p>'
+      : antwoorden.map(vak => `
+          <div class="overzicht-veld">
+            <div class="overzicht-label">${vak.vraag}</div>
+            <div class="overzicht-waarde">${vak.antwoord || '—'}</div>
+          </div>
+        `).join('');
+  }
 
   const reflectieLabels = { 'gelukt': 'Gelukt?', 'verklaring': 'Verklaring', 'geleerd-actie': 'Geleerd van actie', 'geleerd-zelf': 'Geleerd over jezelf', 'vervolgstap': 'Vervolgstap' };
   const reflectieEl = document.getElementById('overzicht-reflectie-velden');

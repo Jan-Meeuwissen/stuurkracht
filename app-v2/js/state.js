@@ -16,9 +16,7 @@ export function defaultState() {
     actie: {
       kaartId: null,
       kaartTekst: null,
-      doelen: { 'waarom': '', 'kenmerk-rol': '', 'opbrengst': '', 'tevreden': '' },
-      concreet: { 'wat': '', 'wie': '', 'waar': '', 'wanneer': '', 'hoe': '', 'eerste-stap': '' },
-      omgeving: { 'gebruiken': '', 'in-de-weg': '', 'omgang-obstakel': '', 'helpers': '', 'blokkers': '', 'omgang-blokkers': '' },
+      antwoorden: [],
     },
     reflectie: {
       gelukt: '',

@@ -171,7 +171,10 @@
 
           <div id="stap4b-referentie" class="referentie-blok" aria-label="Gekozen actiekaart"></div>
 
-          <div id="hulpkaarten-formulier"></div>
+          <div id="stap4b-layout" class="stap4b-layout">
+            <div id="hulpkaarten-sidebar" class="hulpkaarten-sidebar" aria-label="Hulpkaarten"></div>
+            <div id="invulvakken-container" class="invulvakken-container" aria-label="Invulvakken actieplan"></div>
+          </div>
 
           <div style="margin-top:var(--ruimte-xl);padding-top:var(--ruimte-l);border-top:1px solid rgba(26,31,44,0.1)">
             <button type="button" id="knop-pdf-4b" class="knop-secundair">
@@ -245,18 +248,8 @@
           </div>
 
           <div class="overzicht-sectie">
-            <h2>Doelen en gewenste opbrengsten</h2>
-            <div id="overzicht-doelen"></div>
-          </div>
-
-          <div class="overzicht-sectie">
-            <h2>Actie concreet</h2>
-            <div id="overzicht-concreet"></div>
-          </div>
-
-          <div class="overzicht-sectie">
-            <h2>Invloed omgevingsfactoren</h2>
-            <div id="overzicht-omgeving"></div>
+            <h2>Actieplan</h2>
+            <div id="overzicht-antwoorden"></div>
           </div>
 
           <div class="overzicht-sectie">
@@ -319,6 +312,30 @@
   <div class="dialog-acties">
     <button type="button" id="knop-annuleer-reset" class="knop-secundair">Annuleren</button>
     <button type="button" id="knop-bevestig-reset" class="knop-gevaar">Ja, wis alles</button>
+  </div>
+</dialog>
+
+<!-- Modal voor hulpkaart vraagselectie -->
+<dialog id="hulpkaart-modal" class="hulpkaart-modal" aria-modal="true" aria-labelledby="modal-titel">
+  <div class="modal-inhoud">
+    <div class="modal-header">
+      <div class="modal-header-links">
+        <img class="modal-illustratie" src="assets/icons/hulpkaart-doelen.svg" alt="" aria-hidden="true">
+        <h2 id="modal-titel">Hulpkaart</h2>
+      </div>
+      <button type="button" class="modal-sluiten" aria-label="Modal sluiten">×</button>
+    </div>
+    <div id="modal-vragen" class="modal-vragen"></div>
+  </div>
+</dialog>
+
+<!-- Bevestigingsdialoog voor verwijderen invulvak -->
+<dialog id="verwijder-dialog" aria-labelledby="verwijder-titel">
+  <h2 id="verwijder-titel">Veld verwijderen?</h2>
+  <p class="dialog-tekst">Weet je het zeker? Het ingevulde antwoord wordt verwijderd.</p>
+  <div class="dialog-acties">
+    <button type="button" id="verwijder-annuleer" class="knop-secundair">Annuleren</button>
+    <button type="button" id="verwijder-bevestig" class="knop-gevaar">Ja, verwijderen</button>
   </div>
 </dialog>
 

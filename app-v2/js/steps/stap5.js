@@ -19,7 +19,9 @@ export function initialiseerStap5(state, content) {
     referentieEl.innerHTML = `
       <h3>Jouw actie${rol ? ` — ${rol.naam}` : ''}</h3>
       ${actie ? `<p style="font-weight:600">${actie.tekst}</p>` : '<p>Geen actie geselecteerd</p>'}
-      ${state.actie?.doelen?.waarom ? `<p style="font-size:0.9rem;color:rgba(26,31,44,0.7)"><strong>Doel:</strong> ${state.actie.doelen.waarom}</p>` : ''}
+      ${state.actie?.antwoorden?.find(a => a.hulpkaart === 'doelen' && a.vraagId === 'waarom')?.antwoord
+        ? `<p style="font-size:0.9rem;color:rgba(26,31,44,0.7)"><strong>Doel:</strong> ${state.actie.antwoorden.find(a => a.hulpkaart === 'doelen' && a.vraagId === 'waarom').antwoord}</p>`
+        : ''}
     `;
   }
 

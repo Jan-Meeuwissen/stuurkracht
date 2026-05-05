@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" fill="none">
+  <!-- Wolk -->
+  <path d="M 68 68 Q 58 42 84 38 Q 90 18 116 24 Q 132 14 148 30 Q 168 27 170 48 Q 188 50 182 70 Q 180 82 162 80 L 78 80 Q 58 80 68 68 Z" stroke="white" stroke-width="2" fill="white" fill-opacity="0.15"/>
+  <!-- Windstrepen links -->
+  <line x1="8"  y1="46" x2="52" y2="46" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="2"  y1="58" x2="58" y2="58" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="8"  y1="70" x2="52" y2="70" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Windstrepen rechts -->
+  <line x1="188" y1="46" x2="232" y2="46" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="182" y1="58" x2="238" y2="58" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="188" y1="70" x2="232" y2="70" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Regendruppels -->
+  <line x1="92"  y1="86" x2="86"  y2="103" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="86" x2="106" y2="103" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="132" y1="86" x2="126" y2="103" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="152" y1="86" x2="146" y2="103" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Golven -->
+  <path d="M 8 116 Q 28 109 48 116 Q 68 123 88 116 Q 108 109 128 116 Q 148 123 168 116 Q 188 109 208 116 Q 228 123 238 118" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 8 130 Q 28 123 48 130 Q 68 137 88 130 Q 108 123 128 130 Q 148 137 168 130 Q 188 123 208 130 Q 228 137 238 132" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.55"/>
+</svg>

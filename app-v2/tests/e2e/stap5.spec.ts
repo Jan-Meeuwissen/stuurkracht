@@ -4,7 +4,7 @@ const SESSIE_STATE = {
   sessieId: 'test', startDatum: '2026-01-01', laatsteWijziging: '',
   huidigeStap: '5', uitdaging: 'Uitdaging test', gekozenRol: 'denker',
   zelfreflectie: { bestuurder: { sterk: [], ontwikkelen: [] }, denker: { sterk: [], ontwikkelen: [] }, ondernemer: { sterk: [], ontwikkelen: [] }, uitzoeker: { sterk: [], ontwikkelen: [] }, verbinder: { sterk: [], ontwikkelen: [] } },
-  actie: { kaartId: 'denk-01', kaartTekst: 'Testactie tekst', doelen: { waarom: 'Testdoel' }, concreet: {}, omgeving: {} },
+  actie: { kaartId: 'denk-01', kaartTekst: 'Zoek een effectieve werkvorm', antwoorden: [{ id: 'vak-1', hulpkaart: 'doelen', vraagId: 'waarom', vraag: 'Waarom ga je deze actie doen?', antwoord: 'Testdoel', volgorde: 0 }] },
   reflectie: { gelukt: '', verklaring: '', 'geleerd-actie': '', 'geleerd-zelf': '', vervolgstap: '' }
 };
 

@@ -14,10 +14,12 @@ const VOLLEDIGE_SESSIE = {
   },
   actie: {
     kaartId: 'verb-01',
-    kaartTekst: 'Testactie verbinder',
-    doelen: { waarom: 'Om beter samen te werken', 'kenmerk-rol': 'luisteren', opbrengst: 'Betere samenwerking', tevreden: 'Als iedereen gehoord is' },
-    concreet: { wat: 'Luistergesprek voeren', wie: 'Groepsleden', waar: 'Klaslokaal', wanneer: 'Vrijdag', hoe: 'Voorbereiding vragen', 'eerste-stap': 'Afspraak maken' },
-    omgeving: { gebruiken: 'Rustige ruimte', 'in-de-weg': 'Tijdgebrek', 'omgang-obstakel': 'Korte agenda', helpers: 'Docent', blokkers: 'Niemand', 'omgang-blokkers': 'nvt' },
+    kaartTekst: 'Breng een kop koffie naar iemand die je al lang niet gesproken hebt.',
+    antwoorden: [
+      { id: 'vak-1', hulpkaart: 'doelen',   vraagId: 'waarom',      vraag: 'Waarom ga je deze actie doen?', antwoord: 'Om beter samen te werken', volgorde: 0 },
+      { id: 'vak-2', hulpkaart: 'concreet',  vraagId: 'wat',         vraag: 'Wat ga je precies doen?',       antwoord: 'Luistergesprek voeren',     volgorde: 1 },
+      { id: 'vak-3', hulpkaart: 'omgeving',  vraagId: 'gebruiken',   vraag: 'Wat kun je gebruiken?',         antwoord: 'Rustige ruimte',            volgorde: 2 },
+    ],
   },
   reflectie: { gelukt: 'Grotendeels', verklaring: 'Goede voorbereiding', 'geleerd-actie': 'Luisteren kost tijd', 'geleerd-zelf': 'Ik kan goed faciliteren', vervolgstap: 'Herhalen volgende week' },
 };
@@ -42,8 +44,8 @@ test('overzicht toont de gekozen actie', async ({ page }) => {
   await expect(page.locator('#overzicht-actie')).toContainText('Breng een kop koffie');
 });
 
-test('overzicht toont doelen', async ({ page }) => {
-  await expect(page.locator('#overzicht-doelen')).toContainText('Om beter samen te werken');
+test('overzicht toont actieplan-antwoorden', async ({ page }) => {
+  await expect(page.locator('#overzicht-antwoorden')).toContainText('Om beter samen te werken');
 });
 
 test('overzicht toont reflectie', async ({ page }) => {

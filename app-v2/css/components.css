@@ -706,7 +706,7 @@ body.paneel-verborgen .paneel-tonen-knop {
 
 .rolkaart-achter .kaart-tagline {
   font-size: 0.8rem;
-  color: rgba(30, 58, 95, 0.7);
+  color: rgba(30, 58, 95, 0.9);
   margin: 4px 0 var(--ruimte-s);
   font-style: italic;
 }
@@ -773,7 +773,7 @@ body.paneel-verborgen .paneel-tonen-knop {
 
 .start-footer-label {
   font-size: 0.82rem;
-  color: rgba(26,31,44,0.55);
+  color: rgba(26,31,44,0.7);
   margin-bottom: var(--ruimte-m);
 }
 
@@ -800,4 +800,248 @@ body.paneel-verborgen .paneel-tonen-knop {
 
 .start-footer-logos img:hover {
   opacity: 1;
+}
+
+/* === Stap 4b: Hulpkaarten sidebar === */
+.hulpkaarten-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ruimte-m);
+}
+
+.hulpkaart-kaart {
+  border-radius: var(--radius-kaart);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--schaduw-kaart);
+  transition: transform var(--duur-kort), box-shadow var(--duur-kort);
+  color: white;
+}
+
+.hulpkaart-kaart:hover:not([data-uitgeput="true"]) {
+  transform: scale(1.02);
+  box-shadow: var(--schaduw-kaart-hover);
+}
+
+.hulpkaart-kaart:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 2px;
+}
+
+.hulpkaart-kaart[data-uitgeput="true"] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.hulpkaart-illustratie {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  padding: 12px 16px 0;
+  display: block;
+}
+
+.hulpkaart-kaart-body {
+  padding: 10px 16px 14px;
+}
+
+.hulpkaart-kaart-body h3 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.hulpkaart-kaart-body p {
+  font-size: 0.76rem;
+  opacity: 0.85;
+  margin-bottom: 6px;
+  color: white;
+  line-height: 1.4;
+}
+
+.hulpkaart-teller {
+  display: inline-block;
+  font-size: 0.7rem;
+  background: rgba(255,255,255,0.22);
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* === Stap 4b: Invulvakken === */
+.invulvakken-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.invulvakken-hint {
+  color: rgba(26,31,44,0.45);
+  font-size: 0.9rem;
+  font-style: italic;
+  padding: var(--ruimte-m) 0;
+}
+
+.invulvak {
+  background: white;
+  border-left: 4px solid var(--vak-kleur, var(--kleur-primair));
+  border-radius: 0 8px 8px 0;
+  padding: 12px;
+  box-shadow: var(--schaduw-kaart);
+}
+
+.invulvak-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--ruimte-s);
+  margin-bottom: 6px;
+}
+
+.invulvak-label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--kleur-tekst);
+  line-height: 1.4;
+}
+
+.invulvak-verwijder {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(26,31,44,0.3);
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0 2px;
+  flex-shrink: 0;
+  transition: color var(--duur-kort);
+}
+
+.invulvak-verwijder:hover { color: #c0392b; }
+
+.invulvak textarea {
+  width: 100%;
+  min-height: 68px;
+  border: 1px solid rgba(26,31,44,0.12);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  font-family: var(--font-basis);
+  resize: vertical;
+  background: var(--kleur-achtergrond);
+  transition: outline var(--duur-kort);
+}
+
+.invulvak textarea:focus {
+  outline: 2px solid var(--vak-kleur, var(--kleur-primair));
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+/* === Hulpkaart modal === */
+.hulpkaart-modal {
+  border: none;
+  border-radius: var(--radius-kaart);
+  padding: 0;
+  max-width: 560px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(26,31,44,0.25);
+}
+
+.hulpkaart-modal::backdrop {
+  background: rgba(26,31,44,0.55);
+}
+
+.hulpkaart-modal[open] {
+  animation: modalInkomen var(--duur-kort) var(--timing);
+}
+
+@keyframes modalInkomen {
+  from { opacity: 0; transform: scale(0.95) translateY(-8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-inhoud {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.modal-header-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-illustratie {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.modal-sluiten {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.85;
+  transition: opacity var(--duur-kort);
+}
+
+.modal-sluiten:hover { opacity: 1; }
+
+.modal-vragen {
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 0 12px;
+}
+
+.modal-vraag-knop {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(26,31,44,0.07);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-family: var(--font-basis);
+  color: var(--kleur-tekst);
+  line-height: 1.5;
+  transition: background var(--duur-kort);
+}
+
+.modal-vraag-knop:last-child { border-bottom: none; }
+.modal-vraag-knop:hover { background: rgba(26,31,44,0.04); }
+
+.modal-leeg-tekst {
+  padding: 28px 20px;
+  color: rgba(26,31,44,0.5);
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.7;
 }

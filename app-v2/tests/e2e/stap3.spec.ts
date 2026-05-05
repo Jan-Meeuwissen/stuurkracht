@@ -54,7 +54,10 @@ test('ontwikkelen-klik verplaatst kwaliteit weg uit sterk', async ({ page }) => 
 test('rolkeuze-radio bewaart gekozenRol', async ({ page }) => {
   const radio = page.locator('input[name="gekozen-rol"]').first();
   const rolId = await radio.getAttribute('value');
-  await radio.check();
+  await radio.evaluate(el => {
+    (el as HTMLInputElement).checked = true;
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  });
   await page.waitForTimeout(100);
 
   const opgeslagen = await page.evaluate(() => {

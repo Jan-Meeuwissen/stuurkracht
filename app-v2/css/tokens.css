@@ -36,6 +36,11 @@
   --ruimte-xl: 40px;
   --ruimte-xxl: 64px;
 
+  /* Hulpkaart-kleuren stap 4b */
+  --hulpkaart-doelen:   #3B6E91;
+  --hulpkaart-concreet: #D9924C;
+  --hulpkaart-omgeving: #5F938B;
+
   /* Animatie */
   --duur-kort: 200ms;
   --duur-middel: 300ms;
